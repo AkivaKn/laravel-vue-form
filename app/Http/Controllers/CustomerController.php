@@ -2,49 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $customers = Customer::all();
+        return ['customers' => $customers];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCustomerRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedCustomer = $request->validate([
+            'name' => 'required|max:100',
+            'email' => 'required|max:320',
+            'phone_number' => 'required|max:14',
+            'address' => 'required',
+        ]);
+        $customer = Customer::create($validatedCustomer);
+        return [ 'customer' => $customer ];
+        
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Customer $customer)
     {
-        //
+        return ['customer' => $customer];
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(Request $request, Customer $customer)
     {
-        //
+        $validatedCustomer = $request->validate([
+            'name' => 'required|max:100',
+            'email' => 'required|max:320',
+            'phone_number' => 'required|max:14',
+            'address' => 'required',
+        ]);
+
+        $customer->update($validatedCustomer);
+        return ['customer'=> $customer ];
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return ['message'=> 'Successfully deleted customer.' ];
     }
 }
