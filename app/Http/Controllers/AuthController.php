@@ -27,10 +27,10 @@ class AuthController extends Controller
         ]);
         $user = User::where('email', $request->email)->first();
         if (!$user) {
-            return ['message' => 'No such user.'];
+            return ['errors' => ['email' => ['No such user.']]];
 
         } elseif (!Hash::check($request->password, $user->password)) {
-            return ['message' => 'Password is incorrect.'];
+            return ['errors' => ['password' => ['Password is incorrect.']]];
         }
 
         $token = $user->createToken($user->name);

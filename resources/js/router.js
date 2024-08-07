@@ -9,7 +9,10 @@ const routes = [{
     component: () => import("./Pages/LoginRoute.vue"),
 },];
 
-export default createRouter({
+
+const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
+export default router;
