@@ -10,7 +10,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return ['customers' => $customers];
+        return $customers;
     }
 
     public function store(Request $request)
@@ -23,6 +23,7 @@ class CustomerController extends Controller
             'address' => 'required',
         ]);
         $customer = Customer::create($validatedCustomer);
+        return 'hello';
         return ['customer' => $customer];
 
     }
