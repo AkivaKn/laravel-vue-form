@@ -16,14 +16,15 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validatedCustomer = $request->validate([
-            'name' => 'required|max:100',
-            'email' => 'required|max:320',
+            'first_name' => 'required|max:35',
+            'surname' => 'required|max:35',
+            'email' => 'email:rfc,dns',
             'phone_number' => 'required|max:14',
             'address' => 'required',
         ]);
         $customer = Customer::create($validatedCustomer);
-        return [ 'customer' => $customer ];
-        
+        return ['customer' => $customer];
+
     }
 
     public function show(Customer $customer)
@@ -34,19 +35,20 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $validatedCustomer = $request->validate([
-            'name' => 'required|max:100',
-            'email' => 'required|max:320',
+            'first_name' => 'required|max:35',
+            'surname' => 'required|max:35',
+            'email' => 'email:rfc,dns',
             'phone_number' => 'required|max:14',
             'address' => 'required',
         ]);
 
         $customer->update($validatedCustomer);
-        return ['customer'=> $customer ];
+        return ['customer' => $customer];
     }
 
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        return ['message'=> 'Successfully deleted customer.' ];
+        return ['message' => 'Successfully deleted customer.'];
     }
 }
