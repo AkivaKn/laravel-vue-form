@@ -21,10 +21,13 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from) => {
-    if (!store.user && to.path !== '/login') {
-        return '/login'
+router.beforeEach(async (to, from) => {
+    if (!store.user && to.path !== "/login") {
+        await store.getUser();
+        if (!store.user) {
+            return "/login";
+        }
     }
-})
+});
 
 export default router;

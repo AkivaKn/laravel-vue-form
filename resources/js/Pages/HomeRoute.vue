@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Customers</h1>
-        <router-link to="/login">Login</router-link><br/>
+        <button @click.prevent="logoutUser">Logout</button><br/>
         <router-link to="/customers/add">New customer</router-link>
         <p v-if="store.user">{{ `Hi ${store.user.name}`}}</p>
         <ul>
@@ -19,6 +19,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import { store } from "../store";
+import router from "../router";
 const response = ref(null);
 const getCustomers = async () => {
     try {
@@ -27,5 +28,12 @@ const getCustomers = async () => {
         console.log(error);
     }
 };
+
 getCustomers();
+const logoutUser = async () => {
+    const loggedOut = await store.logout();
+    if (loggedOut) {
+        router.push('/login')
+    }
+}
 </script>
