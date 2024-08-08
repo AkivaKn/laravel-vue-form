@@ -120,7 +120,11 @@ const formData = reactive({
 });
 const postCustomer = async () => {
     try {
-        const res = await axios.post("/api/customers", formData);
+        const res = await axios.post("/api/customers", formData,{
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
         router.push("/");
     } catch (error) {
         errors.value = error.response.data.errors;

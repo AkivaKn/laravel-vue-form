@@ -9,7 +9,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource("customers", CustomerController::class);
+Route::apiResource("customers", CustomerController::class)->middleware('auth:sanctum');
 
 Route::post('/register', [AuthController::class, 'register']);
 

@@ -1,7 +1,7 @@
 <template>
     <h2 class="text-center mb-3">Customers</h2>
 
-    <div class="d-none d-md-block">
+    <div class="d-none d-md-block p-2">
         <table class="table table-light">
             <thead>
                 <tr>
@@ -55,7 +55,11 @@ import { ref } from "vue";
 const response = ref(null);
 const getCustomers = async () => {
     try {
-        response.value = await axios.get("/api/customers");
+        response.value = await axios.get("/api/customers",{
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
     } catch (error) {
         console.log(error);
     }
