@@ -19,6 +19,9 @@ class Customer extends Model
         'surname',
         'email',
         'phone_number',
-        'address'
+        'first_line',
+        'second_line',
+        'city',
+        'postcode',
     ];
 }

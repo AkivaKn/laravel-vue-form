@@ -20,7 +20,11 @@ class CustomerController extends Controller
             'surname' => 'required|max:35',
             'email' => 'email:rfc,dns',
             'phone_number' => 'required|max:14',
-            'address' => 'required',
+            'first_line' => 'required|max:35',
+            'second_line'=> 'max:35',
+            'city' => 'required|max:35',
+            'postcode' => 'required|max:8',
+
         ]);
         $customer = Customer::create($validatedCustomer);
         return ['customer' => $customer];
@@ -39,7 +43,10 @@ class CustomerController extends Controller
             'surname' => 'required|max:35',
             'email' => 'email:rfc,dns',
             'phone_number' => 'required|max:14',
-            'address' => 'required',
+            'first_line' => 'required|max:35',
+            'second_line'=> 'max:35',
+            'city' => 'required|max:35',
+            'postcode' => 'required|max:8',
         ]);
 
         $customer->update($validatedCustomer);
