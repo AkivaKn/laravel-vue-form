@@ -1,6 +1,8 @@
 <template>
     <div>
         <h1>Customers</h1>
+        <router-link to="/login">Login</router-link><br/>
+        <router-link to="/customers/add">New customer</router-link>
         <p v-if="store.user">{{ `Hi ${store.user.name}`}}</p>
         <ul>
             <li v-if="response" v-for="customer in response.data">
@@ -10,7 +12,7 @@
                 <p>{{ customer.address }}</p>
             </li>
         </ul>
-        <router-link to="/login">Login</router-link>
+
     </div>
 </template>
 <script setup>

@@ -23,7 +23,6 @@ class CustomerController extends Controller
             'address' => 'required',
         ]);
         $customer = Customer::create($validatedCustomer);
-        return 'hello';
         return ['customer' => $customer];
 
     }
