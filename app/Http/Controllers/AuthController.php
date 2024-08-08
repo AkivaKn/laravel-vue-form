@@ -10,14 +10,18 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validatedUser = $request->validate([
-            'name' => 'required|max:100',
-            'email' => 'required|email:rfc,dns|unique:users',
-            'password' => 'required|confirmed',
-        ]);
-        $user = User::create($validatedUser);
-        $token = $user->createToken($request->name);
-        return ['user' => $user, 'token' => $token->plainTextToken];
+        try {
+            $validatedUser = $request->validate([
+                'name' => 'required|max:100',
+                'email' => 'required|email:rfc,dns|unique:users',
+                'password' => 'required|confirmed',
+            ]);
+            $user = User::create($validatedUser);
+            $token = $user->createToken($request->name);
+            return ['user' => $user, 'token' => $token->plainTextToken];
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
     public function login(Request $request)
     {
