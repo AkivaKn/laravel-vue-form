@@ -6,7 +6,6 @@
                 <input
                 id="email"
                     type="text"
-                    placeholder="email"
                     v-model="formData.email"
                     class="form-control"
                     :class="{ 'is-invalid': store.loginErrors?.email }"
@@ -18,7 +17,6 @@
                 <input
                 id="password"
                 type="password"
-                placeholder="password"
                 v-model="formData.password"
                 class="form-control"
                 :class="{ 'is-invalid': store.loginErrors?.password }"
