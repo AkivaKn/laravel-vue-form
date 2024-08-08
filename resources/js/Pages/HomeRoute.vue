@@ -1,25 +1,49 @@
 <template>
     <div>
-        <h1>Customers</h1>
-        <button @click.prevent="logoutUser">Logout</button><br/>
-        <router-link to="/customers/add">New customer</router-link>
-        <p v-if="store.user">{{ `Hi ${store.user.name}`}}</p>
-        <ul>
-            <li v-if="response" v-for="customer in response.data">
-                <h3>{{ `${customer.first_name} ${customer.surname}` }}</h3>
-                <p>{{ customer.email }}</p>
-                <p>{{ customer.phone_number }}</p>
-                <p>{{ customer.address }}</p>
-            </li>
-        </ul>
+        <h2 class="text-center mb-3">Customers</h2>
 
+            
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="response" v-for="customer in response.data">
+                    <th>{{ `${customer.first_name} ${customer.surname}` }}</th>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone_number }}</td>
+                    <td>{{ customer.address }}</td>
+                </tr>
+            </tbody>
+            <!-- <div
+                class="card list-group-item"
+                v-if="response"
+                v-for="customer in response.data"
+            >
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ `${customer.first_name} ${customer.surname}` }}
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        {{ customer.email }}
+                    </h6>
+                    <p class="card-text">{{ customer.phone_number }}</p>
+                    <p class="card-text">{{ customer.address }}</p>
+                </div>
+            </div> -->
+        </table>
     </div>
 </template>
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
+import {  ref } from "vue";
 import { store } from "../store";
-import router from "../router";
+
 const response = ref(null);
 const getCustomers = async () => {
     try {
@@ -30,10 +54,4 @@ const getCustomers = async () => {
 };
 
 getCustomers();
-const logoutUser = async () => {
-    const loggedOut = await store.logout();
-    if (loggedOut) {
-        router.push('/login')
-    }
-}
 </script>

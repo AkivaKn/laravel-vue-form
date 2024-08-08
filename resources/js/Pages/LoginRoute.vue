@@ -1,22 +1,40 @@
 <template>
-    <h1>Login</h1>
-    <form @submit.prevent="loginUser">
-        <div>
-            <p v-if="store.loginError.email">{{ store.loginError.email[0] }}</p>
-            <input type="text" placeholder="email" v-model="formData.email" />
-        </div>
-        <div>
-            <p v-if="store.loginError.password">
-                {{ store.loginError.password[0] }}
-            </p>
-            <input
+    <h2 class="text-center m-3">Login</h2>
+    <div class="w-75 mx-auto">
+        <form @submit.prevent="loginUser">
+            <div class="form-floating mb-1">
+                <input
+                id="email"
+                    type="text"
+                    placeholder="email"
+                    v-model="formData.email"
+                    class="form-control"
+                    :class="{ 'is-invalid': store.loginErrors?.email }"
+                />
+                <label for="email">Email</label>
+            </div>
+            <p v-if="store.loginErrors.email" class="text-danger">{{ store.loginErrors.email[0] }}</p>
+            <div class="form-floating mb-1">
+                <input
+                id="password"
                 type="password"
                 placeholder="password"
                 v-model="formData.password"
-            />
-        </div>
-        <button>Login</button>
-    </form>
+                class="form-control"
+                :class="{ 'is-invalid': store.loginErrors?.password }"
+
+                />
+                <label for="password">Password</label>
+            </div>
+            <p v-if="store.loginErrors.password" class="text-danger">
+                {{ store.loginErrors.password[0] }}
+            </p>
+            <div class="d-grid gap-2">
+
+                <button class="btn btn-success btn-lg">Login</button>
+            </div>
+        </form>
+    </div>
 </template>
 <script setup>
 import { reactive } from "vue";

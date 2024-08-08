@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email:rfc,dns|exists:users',
+            'email' => 'required|email:rfc,dns',
             'password' => 'required',
         ]);
         $user = User::where('email', $request->email)->first();
