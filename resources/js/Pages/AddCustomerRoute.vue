@@ -23,11 +23,10 @@
         <div>
             <p v-if="errors?.address">{{ errors.address[0] }}</p>
 
-            <input
-                type="text"
+            <textarea
                 placeholder="address"
                 v-model="formData.address"
-            />
+            ></textarea>
         </div>
         <button>Submit</button>
     </form>
