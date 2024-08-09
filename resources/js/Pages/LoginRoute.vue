@@ -44,9 +44,28 @@ const formData = reactive({
     password: "",
 });
 const loginUser = async () => {
-    const loggedIn = await store.login(formData);
-    if (loggedIn) {
-        router.push("/");
+    const validFormData = checkForm();
+    if (validFormData) {
+        const loggedIn = await store.login(formData);
+        if (loggedIn) {
+            router.push("/");
+        }
     }
+};
+const checkForm = () => {
+    const formErrors = {};
+    
+    if (!formData.email) {
+        formErrors.email = ["The email field is required."];
+    }
+    if (!formData.password) {
+        formErrors.password = ["The password field is required."];
+    }
+    
+    if (Object.keys(formErrors).length > 0) {
+        store.loginErrors = formErrors;
+        return false;
+    }
+    return true;
 };
 </script>
