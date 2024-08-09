@@ -22,11 +22,11 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
+    await store.getUser();
     if (!store.user && to.path !== "/login") {
-        await store.getUser();
-        if (!store.user) {
-            return "/login";
-        }
+        return "/login";
+    } else if (store.user && to.path === "/login") {
+        return "/";
     }
 });
 
