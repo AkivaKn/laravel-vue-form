@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('address');
             $table->string('first_line');
             $table->string('second_line')->nullable();
             $table->string('city');
